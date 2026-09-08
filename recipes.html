@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse all Healthy Ways recipes. Search by name or filter by ingredients you have on hand.">
+  <title>All Recipes — Healthy Ways</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============================================
+       NAVBAR
+       ============================================ -->
+  <header class="navbar" role="banner">
+    <div class="container">
+      <a href="index.html" class="nav-logo" aria-label="Healthy Ways Home">🌿 Healthy<span>Ways</span></a>
+
+      <nav class="nav-links" role="navigation" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="recipes.html" class="active">Recipes</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+
+      <div class="nav-cta">
+        <a href="recipes.html" class="btn btn-primary btn-sm">Explore Recipes</a>
+      </div>
+
+      <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-overlay" aria-hidden="true"></div>
+  </header>
+
+  <main>
+
+    <!-- ============================================
+         RECIPES PAGE
+         ============================================ -->
+    <section class="recipes-page">
+      <div class="container">
+
+        <!-- Page Header -->
+        <div class="recipes-header">
+          <h1 class="section-title">All Recipes</h1>
+          <p class="section-desc">Search by name or select ingredients you have on hand</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="recipes-search">
+          <input type="text" id="recipeSearch" placeholder="🔍  Search recipes, ingredients, or alternatives…" aria-label="Search recipes">
+        </div>
+
+        <!-- Ingredient Tags -->
+        <div class="recipes-filter-section">
+          <p class="recipes-filter-label">Filter by ingredient:</p>
+          <div class="recipes-ingredients" id="ingredientTags">
+            <!-- Auto-populated from recipe data -->
+          </div>
+        </div>
+
+        <!-- Active Filters -->
+        <div class="recipes-active-filters" id="activeFilters"></div>
+
+        <!-- Results Count -->
+        <div class="recipes-count" id="recipeCount"></div>
+
+        <!-- Recipe Grid -->
+        <div class="menu-grid" id="allRecipesGrid">
+          <p class="recipe-loading" style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:60px 0;font-size:0.95rem;">Loading recipes…</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================
+       RECIPE MODAL
+       ============================================ -->
+  <div class="recipe-modal-overlay" id="recipeModal">
+    <div class="recipe-modal">
+      <button class="recipe-modal-close" aria-label="Close recipe">&times;</button>
+      <div class="recipe-modal-header">
+        <div class="recipe-modal-emoji"></div>
+        <div>
+          <h2 class="recipe-modal-title"></h2>
+          <p class="recipe-modal-alt"></p>
+        </div>
+      </div>
+      <div class="recipe-modal-nutrition">
+        <div class="recipe-modal-macros">
+          <h4>Macros</h4>
+          <ul></ul>
+        </div>
+        <div class="recipe-modal-micros">
+          <h4>Micros</h4>
+          <ul></ul>
+        </div>
+      </div>
+      <div class="recipe-modal-kcal"></div>
+      <div class="recipe-modal-ingredients">
+        <h4>Ingredients</h4>
+        <ul></ul>
+      </div>
+      <div class="recipe-modal-steps">
+        <h4>Steps</h4>
+        <ol></ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none;">
+        <p>&copy; 2024 Healthy Ways. All rights reserved. &nbsp;·&nbsp; <a href="index.html" style="color:var(--accent-lime);">← Back to Home</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="js/main.js"></script>
+</body>
+</html>

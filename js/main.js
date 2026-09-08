@@ -43,15 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
       navLinks.classList.contains('active') ? closeMenu() : openMenu();
     });
 
-    // Close menu when a link is clicked
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', closeMenu);
     });
 
-    // Close menu when overlay is clicked
-    navOverlay.addEventListener('click', closeMenu);
+    if (navOverlay) navOverlay.addEventListener('click', closeMenu);
 
-    // Close menu on Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && navLinks.classList.contains('active')) {
         closeMenu();
@@ -129,15 +126,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const animate = (now) => {
           const progress = Math.min((now - start) / duration, 1);
-          // Ease-out cubic
           const eased = 1 - Math.pow(1 - progress, 3);
           const current = Math.floor(eased * target);
-          el.textContent = current + suffix;
+          el.textContent = current.toLocaleString() + suffix;
 
           if (progress < 1) {
             requestAnimationFrame(animate);
           } else {
-            el.textContent = target + suffix;
+            el.textContent = target.toLocaleString() + suffix;
           }
         };
 
@@ -166,175 +162,296 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ---- Recipe Data ----
-  const recipes = [
-    {
-      emoji: '🥗',
-      title: 'Quinoa Power Bowl',
-      alt: 'fried rice',
-      macros: { Protein: '18g', Carbs: '42g', Fat: '12g', Fiber: '6g' },
-      kcal: 284,
-      micros: { 'Vitamin A': '12%', 'Vitamin C': '34%', 'Iron': '18%', 'Calcium': '8%', 'Potassium': '15%' },
-      ingredients: ['Organic quinoa', 'Bell peppers', 'Zucchini', 'Cherry tomatoes', 'Avocado', 'Tahini', 'Lemon juice', 'Fresh parsley'],
-      steps: [
-        'Rinse quinoa and cook in salted water for 15 minutes until fluffy. Let it cool slightly.',
-        'Dice bell peppers, zucchini, and cherry tomatoes. Toss with olive oil, salt, and pepper.',
-        'Roast the vegetables at 200°C (400°F) for 20 minutes until edges are golden.',
-        'Whisk tahini with lemon juice, a splash of water, salt, and a pinch of garlic powder.',
-        'Slice avocado and prepare fresh parsley.',
-        'Assemble the bowl: quinoa base, roasted vegetables, avocado slices, drizzle with tahini dressing, and garnish with parsley.'
-      ]
-    },
-    {
-      emoji: '🥑',
-      title: 'Avocado Toast Deluxe',
-      alt: 'cream cheese bagels',
-      macros: { Protein: '14g', Carbs: '32g', Fat: '22g', Fiber: '8g' },
-      kcal: 340,
-      micros: { 'Vitamin K': '26%', 'Vitamin C': '18%', 'Folate': '22%', 'Magnesium': '12%', 'Potassium': '18%' },
-      ingredients: ['Sourdough bread', 'Ripe avocado', 'Free-range eggs', 'Microgreens', 'Chili flakes', 'Extra virgin olive oil', 'Flaky sea salt', 'Lemon'],
-      steps: [
-        'Toast two thick slices of sourdough until golden and crispy.',
-        'Halve the avocado, remove the pit, and scoop into a bowl. Mash with a fork, leaving it slightly chunky.',
-        'Season the avocado with a squeeze of lemon, sea salt, and a drizzle of olive oil.',
-        'Poach eggs in simmering water with a splash of vinegar for 3 minutes until whites are set.',
-        'Spread the mashed avocado generously on each toast.',
-        'Top with poached eggs, a handful of microgreens, chili flakes, and a final pinch of flaky salt.'
-      ]
-    },
-    {
-      emoji: '🍲',
-      title: 'Golden Turmeric Soup',
-      alt: 'cream-based soups',
-      macros: { Protein: '10g', Carbs: '28g', Fat: '14g', Fiber: '5g' },
-      kcal: 220,
-      micros: { 'Vitamin A': '35%', 'Vitamin C': '20%', 'Iron': '15%', 'Manganese': '22%', 'Zinc': '10%' },
-      ingredients: ['Coconut milk', 'Fresh turmeric root', 'Sweet potato', 'Chickpeas', 'Ginger', 'Garlic', 'Vegetable broth', 'Fresh cilantro'],
-      steps: [
-        'Peel and dice sweet potato into small cubes. Mince ginger and garlic.',
-        'Heat olive oil in a pot over medium heat. Sauté garlic and ginger for 1 minute until fragrant.',
-        'Add diced sweet potato and grated turmeric. Stir for 2 minutes.',
-        'Pour in vegetable broth and coconut milk. Bring to a boil, then reduce to a simmer.',
-        'Cook for 20 minutes until sweet potato is tender. Add drained chickpeas in the last 5 minutes.',
-        'Blend half the soup for a creamy texture, stir back in, and serve topped with roasted chickpeas and fresh cilantro.'
-      ]
-    },
-    {
-      emoji: '🌯',
-      title: 'Mediterranean Wrap',
-      alt: 'fast-food burritos',
-      macros: { Protein: '16g', Carbs: '38g', Fat: '14g', Fiber: '7g' },
-      kcal: 310,
-      micros: { 'Vitamin A': '18%', 'Vitamin C': '24%', 'Iron': '20%', 'Calcium': '12%', 'Folate': '16%' },
-      ingredients: ['Whole wheat tortilla', 'Homemade hummus', 'Baked falafel', 'Cucumber', 'Tomato', 'Red onion', 'Tzatziki sauce', 'Mixed greens'],
-      steps: [
-        'Prepare falafel by blending chickpeas, herbs, garlic, and spices. Form into small patties and bake at 190°C (375°F) for 25 minutes.',
-        'Dice cucumber, tomato, and thinly slice red onion.',
-        'Make tzatziki by mixing Greek yogurt with grated cucumber, garlic, lemon juice, and dill.',
-        'Warm the whole wheat tortilla in a dry pan for 30 seconds on each side.',
-        'Spread a generous layer of hummus down the center of the tortilla.',
-        'Layer falafel, diced vegetables, mixed greens, and drizzle with tzatziki. Roll tightly, tucking in the sides.'
-      ]
-    },
-    {
-      emoji: '🍣',
-      title: 'Poke Bowl',
-      alt: 'mayo-heavy sushi rolls',
-      macros: { Protein: '24g', Carbs: '36g', Fat: '10g', Fiber: '4g' },
-      kcal: 320,
-      micros: { 'Omega-3': '45%', 'Vitamin D': '22%', 'Vitamin B12': '38%', 'Selenium': '28%', 'Iodine': '20%' },
-      ingredients: ['Sushi-grade salmon', 'Short-grain brown rice', 'Edamame', 'Cucumber', 'Mango', 'Sesame seeds', 'Ginger', 'Low-sodium soy sauce'],
-      steps: [
-        'Cook brown rice according to package instructions. Season with a splash of rice vinegar and let cool.',
-        'Dice sushi-grade salmon into bite-sized cubes. Toss with low-sodium soy sauce and a drizzle of sesame oil.',
-        'Shell edamame, slice cucumber into thin rounds, and dice mango.',
-        'Thinly slice fresh ginger and soak in rice vinegar with a pinch of sugar for 10 minutes.',
-        'Assemble the bowl: rice base, arranged sections of salmon, edamame, cucumber, and mango.',
-        'Top with sesame seeds, pickled ginger, and serve with extra soy sauce on the side.'
-      ]
-    },
-    {
-      emoji: '🫐',
-      title: 'Açaí Bliss Bowl',
-      alt: 'ice cream & sugary cereal',
-      macros: { Protein: '6g', Carbs: '48g', Fat: '8g', Fiber: '10g' },
-      kcal: 260,
-      micros: { 'Vitamin C': '42%', 'Vitamin A': '15%', 'Antioxidants': '65%', 'Iron': '10%', 'Calcium': '8%' },
-      ingredients: ['Frozen açaí puree', 'Banana', 'Mixed berries', 'Granola', 'Coconut flakes', 'Raw honey', 'Chia seeds', 'Almond butter'],
-      steps: [
-        'Blend frozen açaí packets with half a banana and a splash of almond milk until thick and smooth.',
-        'Pour the açaí base into a bowl.',
-        'Slice the remaining banana. Wash and prepare fresh berries.',
-        'Arrange toppings in sections: sliced banana, mixed berries, a handful of granola, and coconut flakes.',
-        'Drizzle with raw honey and a spoonful of almond butter.',
-        'Sprinkle chia seeds on top and serve immediately before it melts.'
-      ]
-    }
-  ];
+  // ============================================
+  //  RECIPE SYSTEM
+  // ============================================
+  let recipes = [];
 
-  // ---- Recipe Modal ----
+  // DOM refs — page-specific elements (null if not on that page)
+  const homeGrid = document.getElementById('recipeGrid');
+  const allGrid = document.getElementById('allRecipesGrid');
+  const searchInput = document.getElementById('recipeSearch');
+  const ingredientTagsEl = document.getElementById('ingredientTags');
+  const activeFiltersEl = document.getElementById('activeFilters');
+  const recipeCountEl = document.getElementById('recipeCount');
   const modalOverlay = document.getElementById('recipeModal');
   const modal = modalOverlay?.querySelector('.recipe-modal');
   const modalClose = modalOverlay?.querySelector('.recipe-modal-close');
 
+  // ---- Fuzzy matching ----
+  const fuzzyMatch = (query, text) => {
+    query = query.toLowerCase();
+    text = text.toLowerCase();
+    if (text.includes(query)) return true;
+    let qi = 0;
+    for (let i = 0; i < text.length && qi < query.length; i++) {
+      if (text[i] === query[qi]) qi++;
+    }
+    return qi === query.length;
+  };
+
+  // ---- Card HTML template ----
+  const createCardHTML = (recipe, globalIndex) => `
+    <article class="product-card fade-in" data-recipe="${globalIndex}">
+      <div class="product-image" role="img" aria-label="${recipe.title}">${recipe.emoji}</div>
+      <div class="product-info">
+        <h3>${recipe.title}</h3>
+        <p class="product-alt">Healthy alternative to <strong>${recipe.alt}</strong></p>
+        <div class="product-macros">
+          ${Object.entries(recipe.macros).map(([k, v]) => `<span>${k} ${v}</span>`).join('')}
+        </div>
+        <div class="product-footer">
+          <span class="product-kcal">${recipe.kcal} kcal</span>
+          <button class="btn btn-primary btn-sm recipe-btn">Know Recipe</button>
+        </div>
+      </div>
+    </article>
+  `;
+
+  // ---- Render cards into a grid ----
+  const renderCards = (grid, list) => {
+    if (!grid) return;
+
+    if (list.length === 0) {
+      grid.innerHTML = `
+        <div class="recipes-no-results">
+          <h3>No recipes found</h3>
+          <p>Try a different search or clear your filters</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = list
+      .map(r => createCardHTML(r, recipes.indexOf(r)))
+      .join('');
+
+    // Observe new cards for fade-in animations
+    grid.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+    // Attach Know Recipe button handlers
+    grid.querySelectorAll('.recipe-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const card = e.target.closest('.product-card');
+        const index = parseInt(card.dataset.recipe, 10);
+        openRecipeModal(index);
+      });
+    });
+  };
+
+  // ---- Recipe Modal ----
   const openRecipeModal = (index) => {
     const recipe = recipes[index];
-    if (!recipe || !modalOverlay) return;
+    if (!recipe || !modal) return;
 
     modal.querySelector('.recipe-modal-emoji').textContent = recipe.emoji;
     modal.querySelector('.recipe-modal-title').textContent = recipe.title;
     modal.querySelector('.recipe-modal-alt').innerHTML =
       `Healthy alternative to <strong>${recipe.alt}</strong>`;
 
-    const macroList = modal.querySelector('.recipe-modal-macros ul');
-    macroList.innerHTML = Object.entries(recipe.macros)
-      .map(([k, v]) => `<li><span>${k}</span><span>${v}</span></li>`)
-      .join('');
+    modal.querySelector('.recipe-modal-macros ul').innerHTML =
+      Object.entries(recipe.macros)
+        .map(([k, v]) => `<li><span>${k}</span><span>${v}</span></li>`)
+        .join('');
 
-    const microList = modal.querySelector('.recipe-modal-micros ul');
-    microList.innerHTML = Object.entries(recipe.micros)
-      .map(([k, v]) => `<li><span>${k}</span><span>${v}</span></li>`)
-      .join('');
+    modal.querySelector('.recipe-modal-micros ul').innerHTML =
+      Object.entries(recipe.micros)
+        .map(([k, v]) => `<li><span>${k}</span><span>${v}</span></li>`)
+        .join('');
 
-    modal.querySelector('.recipe-modal-kcal').textContent = `${recipe.kcal} kcal per serving`;
+    modal.querySelector('.recipe-modal-kcal').textContent =
+      `${recipe.kcal} kcal per serving`;
 
-    const ingredientList = modal.querySelector('.recipe-modal-ingredients ul');
-    ingredientList.innerHTML = recipe.ingredients.map(i => `<li>${i}</li>`).join('');
+    modal.querySelector('.recipe-modal-ingredients ul').innerHTML =
+      recipe.ingredients.map(i => `<li>${i}</li>`).join('');
 
-    const stepList = modal.querySelector('.recipe-modal-steps ol');
-    stepList.innerHTML = recipe.steps.map(s => `<li>${s}</li>`).join('');
+    modal.querySelector('.recipe-modal-steps ol').innerHTML =
+      recipe.steps.map(s => `<li>${s}</li>`).join('');
 
     modalOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
   };
 
   const closeRecipeModal = () => {
+    if (!modalOverlay) return;
     modalOverlay.classList.remove('active');
     document.body.style.overflow = '';
   };
 
-  document.querySelectorAll('.recipe-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const card = e.target.closest('.product-card');
-      const index = parseInt(card.dataset.recipe, 10);
-      openRecipeModal(index);
-    });
-  });
-
-  if (modalClose) {
-    modalClose.addEventListener('click', closeRecipeModal);
-  }
+  if (modalClose) modalClose.addEventListener('click', closeRecipeModal);
 
   if (modalOverlay) {
     modalOverlay.addEventListener('click', (e) => {
       if (e.target === modalOverlay) closeRecipeModal();
     });
-
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
         closeRecipeModal();
       }
     });
   }
+
+  // ============================================
+  //  HOMEPAGE — pinned recipes only
+  // ============================================
+  const initHomepage = () => {
+    const pinned = recipes.filter(r => r.pinned);
+    renderCards(homeGrid, pinned.length > 0 ? pinned : recipes.slice(0, 6));
+  };
+
+  // ============================================
+  //  ALL RECIPES PAGE — search + ingredient filter
+  // ============================================
+  let selectedIngredients = [];
+  let searchQuery = '';
+
+  // Extract unique ingredients sorted by frequency
+  const extractIngredients = () => {
+    const map = {};
+    recipes.forEach(r => {
+      r.ingredients.forEach(ing => {
+        const key = ing.toLowerCase().trim();
+        if (!map[key]) map[key] = { display: ing, count: 0 };
+        map[key].count++;
+      });
+    });
+    return Object.values(map)
+      .sort((a, b) => b.count - a.count)
+      .map(v => v.display);
+  };
+
+  // Render clickable ingredient tag pills
+  const renderIngredientTags = (ingredients) => {
+    if (!ingredientTagsEl) return;
+
+    ingredientTagsEl.innerHTML = ingredients
+      .map(ing => {
+        const key = ing.toLowerCase();
+        const isActive = selectedIngredients.includes(key) ? ' active' : '';
+        return `<button class="ingredient-tag${isActive}" data-ingredient="${key}">${ing}</button>`;
+      })
+      .join('');
+
+    ingredientTagsEl.querySelectorAll('.ingredient-tag').forEach(tag => {
+      tag.addEventListener('click', () => {
+        const ing = tag.dataset.ingredient;
+
+        if (selectedIngredients.includes(ing)) {
+          selectedIngredients = selectedIngredients.filter(s => s !== ing);
+          tag.classList.remove('active');
+        } else {
+          selectedIngredients.push(ing);
+          tag.classList.add('active');
+        }
+
+        renderActiveFilters();
+        filterRecipes();
+      });
+    });
+  };
+
+  // Show active ingredient filters as removable badges
+  const renderActiveFilters = () => {
+    if (!activeFiltersEl) return;
+
+    if (selectedIngredients.length === 0) {
+      activeFiltersEl.innerHTML = '';
+      return;
+    }
+
+    activeFiltersEl.innerHTML = selectedIngredients
+      .map(ing => `
+        <span class="active-filter" data-ingredient="${ing}">
+          ${ing} <span class="remove-filter">×</span>
+        </span>
+      `).join('');
+
+    activeFiltersEl.querySelectorAll('.remove-filter').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const ing = btn.closest('.active-filter').dataset.ingredient;
+        selectedIngredients = selectedIngredients.filter(s => s !== ing);
+
+        // Deactivate the tag pill
+        const tag = ingredientTagsEl?.querySelector(`[data-ingredient="${ing}"]`);
+        if (tag) tag.classList.remove('active');
+
+        renderActiveFilters();
+        filterRecipes();
+      });
+    });
+  };
+
+  // Apply text search + ingredient filter, re-render grid
+  const filterRecipes = () => {
+    let filtered = recipes;
+
+    // Fuzzy text search across title, alt, and ingredients
+    if (searchQuery) {
+      filtered = filtered.filter(r => {
+        const searchable = [r.title, r.alt, ...r.ingredients].join(' ');
+        return fuzzyMatch(searchQuery, searchable);
+      });
+    }
+
+    // Ingredient filter — recipe must contain ALL selected ingredients
+    if (selectedIngredients.length > 0) {
+      filtered = filtered.filter(r => {
+        const recipeIngs = r.ingredients.map(i => i.toLowerCase());
+        return selectedIngredients.every(sel =>
+          recipeIngs.some(ing => ing.includes(sel))
+        );
+      });
+    }
+
+    renderCards(allGrid, filtered);
+
+    if (recipeCountEl) {
+      recipeCountEl.textContent =
+        `${filtered.length} recipe${filtered.length !== 1 ? 's' : ''} found`;
+    }
+  };
+
+  const initRecipesPage = () => {
+    const ingredients = extractIngredients();
+    renderIngredientTags(ingredients);
+
+    if (searchInput) {
+      let debounceTimer;
+      searchInput.addEventListener('input', () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          searchQuery = searchInput.value.trim();
+          filterRecipes();
+        }, 150);
+      });
+    }
+
+    // Initial render — show all recipes
+    filterRecipes();
+  };
+
+  // ============================================
+  //  LOAD & INIT
+  // ============================================
+  const loadRecipes = async () => {
+    try {
+      const res = await fetch('data/recipes.json');
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      recipes = await res.json();
+
+      if (homeGrid) initHomepage();
+      if (allGrid) initRecipesPage();
+    } catch (err) {
+      console.error('Failed to load recipes:', err);
+      const grid = homeGrid || allGrid;
+      if (grid) {
+        grid.innerHTML = `
+          <p style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:60px 0;">
+            Unable to load recipes. Please try again later.
+          </p>`;
+      }
+    }
+  };
+
+  loadRecipes();
 
 });
