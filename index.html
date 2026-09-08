@@ -26,19 +26,20 @@
       <nav class="nav-links" role="navigation" aria-label="Main navigation">
         <a href="#home">Home</a>
         <a href="#about">About</a>
-        <a href="#menu">Menu</a>
+        <a href="#menu">Recipes</a>
         <a href="#testimonials">Testimonials</a>
         <a href="#contact">Contact</a>
       </nav>
 
       <div class="nav-cta">
-        <a href="#menu" class="btn btn-primary btn-sm">Order Now</a>
+        <a href="#menu" class="btn btn-primary btn-sm">Explore Recipes</a>
       </div>
 
       <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
+    <div class="nav-overlay" aria-hidden="true"></div>
   </header>
 
   <main>
@@ -55,10 +56,10 @@
             <span class="highlight">Fuel Your Life</span>
           </h1>
           <p class="hero-subtitle">
-            Discover the finest organic, farm-fresh ingredients crafted into meals that taste as good as they make you feel. Your journey to healthier eating starts here.
+            Discover healthy alternatives to your favorite comfort foods — complete with nutrition breakdowns, ingredients, and step-by-step recipes. Eating well has never been this simple.
           </p>
           <div class="hero-buttons">
-            <a href="#menu" class="btn btn-primary">Explore Menu</a>
+            <a href="#menu" class="btn btn-primary">Explore Recipes</a>
             <a href="#about" class="btn btn-outline">Learn More</a>
           </div>
         </div>
@@ -155,86 +156,122 @@
     <section class="menu" id="menu">
       <div class="container">
         <div class="section-header fade-in">
-          <p class="section-subtitle">Explore</p>
-          <h2 class="section-title">Our Popular Dishes</h2>
-          <p class="section-desc">Handcrafted with love, served with care</p>
+          <p class="section-subtitle">Recipes</p>
+          <h2 class="section-title">Healthy Alternatives</h2>
+          <p class="section-desc">Discover nutritious swaps for your favorite comfort foods — with full macro and micro breakdowns</p>
         </div>
 
         <div class="menu-grid">
-          <!-- Product 1 -->
-          <article class="product-card fade-in">
+          <!-- Recipe 1 -->
+          <article class="product-card fade-in" data-recipe="0">
             <div class="product-image" role="img" aria-label="Quinoa Power Bowl">🥗</div>
             <div class="product-info">
               <h3>Quinoa Power Bowl</h3>
-              <p class="product-desc">Organic quinoa, roasted vegetables, avocado, and tahini dressing</p>
+              <p class="product-alt">Healthy alternative to <strong>fried rice</strong></p>
+              <div class="product-macros">
+                <span>Protein 18g</span>
+                <span>Carbs 42g</span>
+                <span>Fat 12g</span>
+                <span>Fiber 6g</span>
+              </div>
               <div class="product-footer">
-                <span class="product-price">$14.99</span>
-                <button class="btn btn-primary btn-sm">Add to Cart</button>
+                <span class="product-kcal">284 kcal</span>
+                <button class="btn btn-primary btn-sm recipe-btn">Know Recipe</button>
               </div>
             </div>
           </article>
 
-          <!-- Product 2 -->
-          <article class="product-card fade-in">
+          <!-- Recipe 2 -->
+          <article class="product-card fade-in" data-recipe="1">
             <div class="product-image" role="img" aria-label="Avocado Toast Deluxe">🥑</div>
             <div class="product-info">
               <h3>Avocado Toast Deluxe</h3>
-              <p class="product-desc">Sourdough, smashed avocado, poached eggs, microgreens, and chili flakes</p>
+              <p class="product-alt">Healthy alternative to <strong>cream cheese bagels</strong></p>
+              <div class="product-macros">
+                <span>Protein 14g</span>
+                <span>Carbs 32g</span>
+                <span>Fat 22g</span>
+                <span>Fiber 8g</span>
+              </div>
               <div class="product-footer">
-                <span class="product-price">$12.99</span>
-                <button class="btn btn-primary btn-sm">Add to Cart</button>
+                <span class="product-kcal">340 kcal</span>
+                <button class="btn btn-primary btn-sm recipe-btn">Know Recipe</button>
               </div>
             </div>
           </article>
 
-          <!-- Product 3 -->
-          <article class="product-card fade-in">
+          <!-- Recipe 3 -->
+          <article class="product-card fade-in" data-recipe="2">
             <div class="product-image" role="img" aria-label="Golden Turmeric Soup">🍲</div>
             <div class="product-info">
               <h3>Golden Turmeric Soup</h3>
-              <p class="product-desc">Warming coconut-turmeric soup with roasted chickpeas and fresh herbs</p>
+              <p class="product-alt">Healthy alternative to <strong>cream-based soups</strong></p>
+              <div class="product-macros">
+                <span>Protein 10g</span>
+                <span>Carbs 28g</span>
+                <span>Fat 14g</span>
+                <span>Fiber 5g</span>
+              </div>
               <div class="product-footer">
-                <span class="product-price">$9.99</span>
-                <button class="btn btn-primary btn-sm">Add to Cart</button>
+                <span class="product-kcal">220 kcal</span>
+                <button class="btn btn-primary btn-sm recipe-btn">Know Recipe</button>
               </div>
             </div>
           </article>
 
-          <!-- Product 4 -->
-          <article class="product-card fade-in">
+          <!-- Recipe 4 -->
+          <article class="product-card fade-in" data-recipe="3">
             <div class="product-image" role="img" aria-label="Mediterranean Wrap">🌯</div>
             <div class="product-info">
               <h3>Mediterranean Wrap</h3>
-              <p class="product-desc">Whole wheat wrap with hummus, falafel, fresh vegetables, and tzatziki</p>
+              <p class="product-alt">Healthy alternative to <strong>fast-food burritos</strong></p>
+              <div class="product-macros">
+                <span>Protein 16g</span>
+                <span>Carbs 38g</span>
+                <span>Fat 14g</span>
+                <span>Fiber 7g</span>
+              </div>
               <div class="product-footer">
-                <span class="product-price">$13.49</span>
-                <button class="btn btn-primary btn-sm">Add to Cart</button>
+                <span class="product-kcal">310 kcal</span>
+                <button class="btn btn-primary btn-sm recipe-btn">Know Recipe</button>
               </div>
             </div>
           </article>
 
-          <!-- Product 5 -->
-          <article class="product-card fade-in">
+          <!-- Recipe 5 -->
+          <article class="product-card fade-in" data-recipe="4">
             <div class="product-image" role="img" aria-label="Poke Bowl">🍣</div>
             <div class="product-info">
               <h3>Poke Bowl</h3>
-              <p class="product-desc">Fresh salmon, edamame, cucumber, mango, and sesame ginger dressing</p>
+              <p class="product-alt">Healthy alternative to <strong>mayo-heavy sushi rolls</strong></p>
+              <div class="product-macros">
+                <span>Protein 24g</span>
+                <span>Carbs 36g</span>
+                <span>Fat 10g</span>
+                <span>Fiber 4g</span>
+              </div>
               <div class="product-footer">
-                <span class="product-price">$16.99</span>
-                <button class="btn btn-primary btn-sm">Add to Cart</button>
+                <span class="product-kcal">320 kcal</span>
+                <button class="btn btn-primary btn-sm recipe-btn">Know Recipe</button>
               </div>
             </div>
           </article>
 
-          <!-- Product 6 -->
-          <article class="product-card fade-in">
+          <!-- Recipe 6 -->
+          <article class="product-card fade-in" data-recipe="5">
             <div class="product-image" role="img" aria-label="Açaí Bliss Bowl">🫐</div>
             <div class="product-info">
               <h3>Açaí Bliss Bowl</h3>
-              <p class="product-desc">Organic açaí, granola, fresh berries, coconut flakes, and honey drizzle</p>
+              <p class="product-alt">Healthy alternative to <strong>ice cream &amp; sugary cereal</strong></p>
+              <div class="product-macros">
+                <span>Protein 6g</span>
+                <span>Carbs 48g</span>
+                <span>Fat 8g</span>
+                <span>Fiber 10g</span>
+              </div>
               <div class="product-footer">
-                <span class="product-price">$11.99</span>
-                <button class="btn btn-primary btn-sm">Add to Cart</button>
+                <span class="product-kcal">260 kcal</span>
+                <button class="btn btn-primary btn-sm recipe-btn">Know Recipe</button>
               </div>
             </div>
           </article>
@@ -299,12 +336,12 @@
     <section class="cta-section" id="contact">
       <div class="container">
         <h2 class="section-title">Ready to Start Your Healthy Journey?</h2>
-        <p class="section-desc">Join thousands who have already discovered the Healthy Ways difference. First order gets 20% off!</p>
+        <p class="section-desc">Subscribe for weekly healthy recipes, nutrition tips, and smart food swaps delivered straight to your inbox.</p>
         <form class="cta-form newsletter-form" aria-label="Get started form">
           <input type="email" placeholder="Enter your email address" required aria-label="Email address">
           <button type="submit" class="btn">Get Started</button>
         </form>
-        <p class="cta-success">🎉 Welcome aboard! Check your inbox for your 20% discount code.</p>
+        <p class="cta-success">🎉 You're in! Check your inbox for your first weekly recipe digest.</p>
       </div>
     </section>
 
@@ -334,7 +371,7 @@
           <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About Us</a></li>
-            <li><a href="#menu">Menu</a></li>
+            <li><a href="#menu">Recipes</a></li>
             <li><a href="#">Blog</a></li>
             <li><a href="#">Careers</a></li>
           </ul>
@@ -369,6 +406,41 @@
       </div>
     </div>
   </footer>
+
+  <!-- ============================================
+       RECIPE MODAL
+       ============================================ -->
+  <div class="recipe-modal-overlay" id="recipeModal">
+    <div class="recipe-modal">
+      <button class="recipe-modal-close" aria-label="Close recipe">&times;</button>
+      <div class="recipe-modal-header">
+        <div class="recipe-modal-emoji"></div>
+        <div>
+          <h2 class="recipe-modal-title"></h2>
+          <p class="recipe-modal-alt"></p>
+        </div>
+      </div>
+      <div class="recipe-modal-nutrition">
+        <div class="recipe-modal-macros">
+          <h4>Macros</h4>
+          <ul></ul>
+        </div>
+        <div class="recipe-modal-micros">
+          <h4>Micros</h4>
+          <ul></ul>
+        </div>
+      </div>
+      <div class="recipe-modal-kcal"></div>
+      <div class="recipe-modal-ingredients">
+        <h4>Ingredients</h4>
+        <ul></ul>
+      </div>
+      <div class="recipe-modal-steps">
+        <h4>Steps</h4>
+        <ol></ol>
+      </div>
+    </div>
+  </div>
 
   <!-- JavaScript -->
   <script src="js/main.js"></script>
