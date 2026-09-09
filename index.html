@@ -5,13 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Healthy Ways — Organic, farm-fresh meals crafted by nutritionists. Discover delicious food that fuels your life.">
   <title>Healthy Ways — Nourish Your Body, Fuel Your Life</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta property="og:title" content="Healthy Ways — Nourish Your Body, Fuel Your Life">
+  <meta property="og:description" content="Discover healthy alternatives to your favorite comfort foods — complete with nutrition breakdowns and step-by-step recipes.">
+  <meta property="og:type" content="website">
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-
-  <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -246,7 +245,6 @@
     <div class="container">
       <div class="footer-grid">
 
-        <!-- Brand -->
         <div class="footer-brand">
           <a href="#" class="nav-logo">🌿 Healthy<span>Ways</span></a>
           <p>Organic, farm-fresh meals crafted by nutritionists. Nourishing bodies and delighting taste buds since 2020.</p>
@@ -257,7 +255,6 @@
           </div>
         </div>
 
-        <!-- Quick Links -->
         <div class="footer-col">
           <h4>Quick Links</h4>
           <ul>
@@ -269,7 +266,6 @@
           </ul>
         </div>
 
-        <!-- Support -->
         <div class="footer-col">
           <h4>Support</h4>
           <ul>
@@ -281,7 +277,6 @@
           </ul>
         </div>
 
-        <!-- Newsletter -->
         <div class="footer-col footer-newsletter">
           <h4>Stay Updated</h4>
           <p>Subscribe to our newsletter for new recipes, seasonal menus, and exclusive offers.</p>
@@ -322,6 +317,14 @@
           <ul></ul>
         </div>
       </div>
+      <div class="recipe-modal-servings">
+        <span>Servings:</span>
+        <div class="servings-control">
+          <button type="button" class="serving-btn" id="servingDec" aria-label="Decrease servings">−</button>
+          <span class="serving-count" id="servingCount">1</span>
+          <button type="button" class="serving-btn" id="servingInc" aria-label="Increase servings">+</button>
+        </div>
+      </div>
       <div class="recipe-modal-kcal"></div>
       <div class="recipe-modal-ingredients">
         <h4>Ingredients</h4>
@@ -334,7 +337,6 @@
     </div>
   </div>
 
-  <!-- JavaScript -->
   <script src="js/main.js"></script>
 </body>
 </html>

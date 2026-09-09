@@ -225,10 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
       .map(r => createCardHTML(r, recipes.indexOf(r)))
       .join('');
 
-    // Observe new cards for fade-in animations
     grid.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
 
-    // Attach Know Recipe button handlers
     grid.querySelectorAll('.recipe-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const card = e.target.closest('.product-card');
@@ -238,28 +236,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // ---- Recipe Modal ----
-  const openRecipeModal = (index) => {
+  // ---- Recipe Modal & Serving Scaler ----
+  let currentRecipeIndex = null;
+  let currentServings = 1;
+
+  const servingCountEl = document.getElementById('servingCount');
+  const servingDecBtn = document.getElementById('servingDec');
+  const servingIncBtn = document.getElementById('servingInc');
+
+  const updateModalNutrition = () => {
+    const recipe = recipes[currentRecipeIndex];
+    if (!recipe || !modal) return;
+
+    if (servingCountEl) servingCountEl.textContent = currentServings;
+
+    // Scale Macros
+    modal.querySelector('.recipe-modal-macros ul').innerHTML =
+      Object.entries(recipe.macros)
+        .map(([k, v]) => {
+          const num = parseFloat(v);
+          const unit = v.replace(/[\d.]/g, '');
+          const scaledVal = isNaN(num) ? v : `${Math.round(num * currentServings)}${unit}`;
+          return `<li><span>${k}</span><span>${scaledVal}</span></li>`;
+        })
+        .join('');
+
+    // Scale Micros
+    modal.querySelector('.recipe-modal-micros ul').innerHTML =
+      Object.entries(recipe.micros)
+        .map(([k, v]) => {
+          const num = parseFloat(v);
+          const unit = v.replace(/[\d.]/g, '');
+          const scaledVal = isNaN(num) ? v : `${Math.round(num * currentServings)}${unit}`;
+          return `<li><span>${k}</span><span>${scaledVal}</span></li>`;
+        })
+        .join('');
+
+    const totalKcal = Math.round(recipe.kcal * currentServings);
+    const servingLabel = currentServings === 1 ? 'serving' : 'servings';
+    modal.querySelector('.recipe-modal-kcal').textContent =
+      `${totalKcal} kcal (${currentServings} ${servingLabel})`;
+  };
+
+  const openRecipeModal = (index, updateHash = true) => {
     const recipe = recipes[index];
     if (!recipe || !modal) return;
+
+    currentRecipeIndex = index;
+    currentServings = 1;
 
     modal.querySelector('.recipe-modal-emoji').textContent = recipe.emoji;
     modal.querySelector('.recipe-modal-title').textContent = recipe.title;
     modal.querySelector('.recipe-modal-alt').innerHTML =
       `Healthy alternative to <strong>${recipe.alt}</strong>`;
 
-    modal.querySelector('.recipe-modal-macros ul').innerHTML =
-      Object.entries(recipe.macros)
-        .map(([k, v]) => `<li><span>${k}</span><span>${v}</span></li>`)
-        .join('');
-
-    modal.querySelector('.recipe-modal-micros ul').innerHTML =
-      Object.entries(recipe.micros)
-        .map(([k, v]) => `<li><span>${k}</span><span>${v}</span></li>`)
-        .join('');
-
-    modal.querySelector('.recipe-modal-kcal').textContent =
-      `${recipe.kcal} kcal per serving`;
+    updateModalNutrition();
 
     modal.querySelector('.recipe-modal-ingredients ul').innerHTML =
       recipe.ingredients.map(i => `<li>${i}</li>`).join('');
@@ -269,15 +300,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     modalOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    if (updateHash && recipe.id) {
+      history.pushState(null, '', `#${recipe.id}`);
+    }
   };
 
-  const closeRecipeModal = () => {
+  const closeRecipeModal = (updateHash = true) => {
     if (!modalOverlay) return;
     modalOverlay.classList.remove('active');
     document.body.style.overflow = '';
+    currentRecipeIndex = null;
+
+    if (updateHash && window.location.hash) {
+      history.pushState(null, '', window.location.pathname + window.location.search);
+    }
   };
 
-  if (modalClose) modalClose.addEventListener('click', closeRecipeModal);
+  if (servingDecBtn) {
+    servingDecBtn.addEventListener('click', () => {
+      if (currentServings > 1) {
+        currentServings--;
+        updateModalNutrition();
+      }
+    });
+  }
+
+  if (servingIncBtn) {
+    servingIncBtn.addEventListener('click', () => {
+      if (currentServings < 12) {
+        currentServings++;
+        updateModalNutrition();
+      }
+    });
+  }
+
+  if (modalClose) modalClose.addEventListener('click', () => closeRecipeModal());
 
   if (modalOverlay) {
     modalOverlay.addEventListener('click', (e) => {
@@ -289,6 +347,22 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  const checkUrlHash = () => {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) {
+      if (modalOverlay && modalOverlay.classList.contains('active')) {
+        closeRecipeModal(false);
+      }
+      return;
+    }
+    const idx = recipes.findIndex(r => r.id === hash);
+    if (idx !== -1) {
+      openRecipeModal(idx, false);
+    }
+  };
+
+  window.addEventListener('popstate', checkUrlHash);
 
   // ============================================
   //  HOMEPAGE — pinned recipes only
@@ -370,7 +444,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const ing = btn.closest('.active-filter').dataset.ingredient;
         selectedIngredients = selectedIngredients.filter(s => s !== ing);
 
-        // Deactivate the tag pill
         const tag = ingredientTagsEl?.querySelector(`[data-ingredient="${ing}"]`);
         if (tag) tag.classList.remove('active');
 
@@ -384,7 +457,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const filterRecipes = () => {
     let filtered = recipes;
 
-    // Fuzzy text search across title, alt, and ingredients
     if (searchQuery) {
       filtered = filtered.filter(r => {
         const searchable = [r.title, r.alt, ...r.ingredients].join(' ');
@@ -392,7 +464,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Ingredient filter — recipe must contain ALL selected ingredients
     if (selectedIngredients.length > 0) {
       filtered = filtered.filter(r => {
         const recipeIngs = r.ingredients.map(i => i.toLowerCase());
@@ -425,7 +496,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Initial render — show all recipes
     filterRecipes();
   };
 
@@ -440,6 +510,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (homeGrid) initHomepage();
       if (allGrid) initRecipesPage();
+      checkUrlHash();
     } catch (err) {
       console.error('Failed to load recipes:', err);
       const grid = homeGrid || allGrid;

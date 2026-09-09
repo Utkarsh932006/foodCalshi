@@ -5,13 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Browse all Healthy Ways recipes. Search by name or filter by ingredients you have on hand.">
   <title>All Recipes — Healthy Ways</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta property="og:title" content="All Recipes — Healthy Ways">
+  <meta property="og:description" content="Browse all healthy recipes. Search by name or filter by ingredients you have on hand.">
+  <meta property="og:type" content="website">
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-
-  <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -50,32 +49,25 @@
     <section class="recipes-page">
       <div class="container">
 
-        <!-- Page Header -->
         <div class="recipes-header">
           <h1 class="section-title">All Recipes</h1>
           <p class="section-desc">Search by name or select ingredients you have on hand</p>
         </div>
 
-        <!-- Search Bar -->
         <div class="recipes-search">
           <input type="text" id="recipeSearch" placeholder="🔍  Search recipes, ingredients, or alternatives…" aria-label="Search recipes">
         </div>
 
-        <!-- Ingredient Tags -->
         <div class="recipes-filter-section">
           <p class="recipes-filter-label">Filter by ingredient:</p>
           <div class="recipes-ingredients" id="ingredientTags">
-            <!-- Auto-populated from recipe data -->
           </div>
         </div>
 
-        <!-- Active Filters -->
         <div class="recipes-active-filters" id="activeFilters"></div>
 
-        <!-- Results Count -->
         <div class="recipes-count" id="recipeCount"></div>
 
-        <!-- Recipe Grid -->
         <div class="menu-grid" id="allRecipesGrid">
           <p class="recipe-loading" style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:60px 0;font-size:0.95rem;">Loading recipes…</p>
         </div>
@@ -108,6 +100,14 @@
           <ul></ul>
         </div>
       </div>
+      <div class="recipe-modal-servings">
+        <span>Servings:</span>
+        <div class="servings-control">
+          <button type="button" class="serving-btn" id="servingDec" aria-label="Decrease servings">−</button>
+          <span class="serving-count" id="servingCount">1</span>
+          <button type="button" class="serving-btn" id="servingInc" aria-label="Increase servings">+</button>
+        </div>
+      </div>
       <div class="recipe-modal-kcal"></div>
       <div class="recipe-modal-ingredients">
         <h4>Ingredients</h4>
@@ -131,7 +131,6 @@
     </div>
   </footer>
 
-  <!-- JavaScript -->
   <script src="js/main.js"></script>
 </body>
 </html>
